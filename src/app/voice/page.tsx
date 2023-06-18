@@ -1,12 +1,11 @@
-"use client";
 import { Box } from "@mui/material"
 
-const Home = () => {
+const Page = () => {
   return (
     <Box>
-      Home
+      voiceページ
     </Box>
   )
 }
 
-export default Home
+export default Page

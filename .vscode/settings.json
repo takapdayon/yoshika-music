@@ -15,9 +15,8 @@
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "[typescriptreact]": {
+    "editor.tabSize": 2,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "search.useIgnoreFiles": false,
-  "cSpell.words": ["brotli", "firebaserc", "hookform", "Millis"]
+  "search.useIgnoreFiles": false
 }
-

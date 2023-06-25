@@ -5,8 +5,8 @@ import { memo, ReactNode } from 'react';
 import { Header } from './Header';
 
 export const MainLayout = memo(({ children }: { children: ReactNode }) => (
-  <Box sx={{ display: 'flex' }}>
+  <Box>
     <Header />
-    {children}
+    <Box sx={{ mt: 10 }}>{children}</Box>
   </Box>
 ));

@@ -2,11 +2,12 @@
 
 import { Box } from '@mui/material';
 import { memo, ReactNode } from 'react';
+
 import { Header } from './Header';
 
 export const MainLayout = memo(({ children }: { children: ReactNode }) => (
-  <Box>
+  <Box sx={{ height: '100dvh', width: 1 }}>
     <Header />
-    <Box sx={{ mt: 10 }}>{children}</Box>
+    <Box sx={{ pt: 10, height: 1 }}>{children}</Box>
   </Box>
 ));

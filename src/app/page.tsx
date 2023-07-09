@@ -1,12 +1,7 @@
-"use client";
-import { Box } from "@mui/material"
+'use client';
 
-const Home = () => {
-  return (
-    <Box>
-      Home
-    </Box>
-  )
-}
+import { Box } from '@mui/material';
 
-export default Home
+const Home = () => <Box>Home</Box>;
+
+export default Home;

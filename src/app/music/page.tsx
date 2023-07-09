@@ -16,6 +16,7 @@ const Page = () => {
     playedMusicList,
     playingMusic,
     addPlayList,
+    delPlayList,
     selectPlayMusic,
     onEndPlayingMusic,
     onBackPlayMusic,
@@ -49,6 +50,7 @@ const Page = () => {
             <PlayList
               musicList={musicList}
               playingMusicNum={playingMusicNum}
+              delPlayList={delPlayList}
               selectPlayMusic={selectPlayMusic}
             />
           </Grid>

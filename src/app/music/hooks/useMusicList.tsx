@@ -16,6 +16,10 @@ export const useMusicList = () => {
     setMusicList(before => [...before, selectedMusic]);
   }, []);
 
+  const delPlayList = (index: number) => {
+    setMusicList(before => before.filter((_, i) => i !== index));
+  };
+
   const selectPlayMusic = useCallback((selectedMusicNum: number) => {
     setPlayingMusicNum(selectedMusicNum);
   }, []);
@@ -50,6 +54,7 @@ export const useMusicList = () => {
     playedMusicList,
     playingMusic,
     addPlayList,
+    delPlayList,
     selectPlayMusic,
     onEndPlayingMusic,
     onBackPlayMusic,

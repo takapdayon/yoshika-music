@@ -40,6 +40,15 @@ describe('useMusicListのテスト', () => {
     expect(result.current.musicList).toStrictEqual([data1, data2]);
   });
 
+  test('delPlayListで値が正しく削除されること', () => {
+    const { result } = renderHook(() => useMusicList());
+    act(() => result.current.addPlayList(data1));
+    act(() => result.current.addPlayList(data2));
+    expect(result.current.musicList).toStrictEqual([data1, data2]);
+    act(() => result.current.delPlayList(1));
+    expect(result.current.musicList).toStrictEqual([data1]);
+  });
+
   test('selectPlayMusicで値が正しくセットされること', () => {
     const { result } = renderHook(() => useMusicList());
     act(() => result.current.addPlayList(data1));

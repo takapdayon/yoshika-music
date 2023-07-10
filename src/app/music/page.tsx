@@ -23,14 +23,8 @@ const Page = () => {
     onForwardPlayMusic,
   } = useMusicList();
 
-  const {
-    videoParameter,
-    playVideo,
-    pauseVideo,
-    changeVolume,
-    changeSeek,
-    reset,
-  } = useYoutubeController();
+  const { videoParameter, playVideo, pauseVideo, changeVolume, changeSeek } =
+    useYoutubeController();
 
   return (
     <>

@@ -68,11 +68,7 @@ export const YoutubeDisplay = ({
               },
             },
           }}
-          onReady={() => console.log('onReady')}
-          onStart={() => console.log('onStart')}
-          onBuffer={() => console.log('onBuffer')}
-          onSeek={e => console.log('onSeek', e)}
-          onError={e => console.log('onError', e)}
+          onEnded={onEndPlayingMusic}
         />
       ) : (
         <Skeleton variant="rectangular" width="100%" />

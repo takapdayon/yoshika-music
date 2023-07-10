@@ -50,8 +50,8 @@ type PlayControllerProps = {
   playingMusicNum: number;
   musicList: MusicType[];
   playedMusicList: MusicType[];
-  changeVolume: (newValue: number | number[]) => void;
-  changeSeek: (newValue: number | number[]) => void;
+  changeVolume: (newValue: number) => void;
+  changeSeek: (newValue: number) => void;
   onBackPlayMusic: () => void;
   onForwardPlayMusic: () => void;
 } & SwitchPlayPauseProps;
@@ -72,6 +72,7 @@ export const PlayController = memo(
   }: PlayControllerProps) => {
     const handleOnChangeVolume = useCallback(
       (_: Event, value: number | number[]) => {
+        if (Array.isArray(value)) return;
         changeVolume(value);
       },
       [changeVolume],
@@ -79,6 +80,7 @@ export const PlayController = memo(
 
     const handleOnChangeSeek = useCallback(
       (_: Event, value: number | number[]) => {
+        if (Array.isArray(value)) return;
         changeSeek(value);
       },
       [changeSeek],
@@ -90,7 +92,8 @@ export const PlayController = memo(
           <Stack
             direction="row"
             spacing={2}
-            sx={{ display: 'flex', justifyContent: 'center' }}
+            display="flex"
+            justifyContent="center"
           >
             <IconButton
               disabled={!playedMusicList.length}
@@ -136,8 +139,13 @@ export const PlayController = memo(
               <Slider
                 size="small"
                 aria-label="Volume"
-                defaultValue={30}
                 valueLabelDisplay="auto"
+                value={videoParameter?.volume}
+                valueLabelFormat={value => (value * 100).toFixed(0).toString()}
+                onChange={handleOnChangeVolume}
+                min={0}
+                max={1}
+                step={0.01}
                 sx={theme => ({
                   color:
                     theme.palette.mode === 'dark' ? '#fff' : 'rgba(0,0,0,0.87)',

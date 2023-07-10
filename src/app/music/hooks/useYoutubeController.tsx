@@ -6,13 +6,19 @@ const initialParameter = {
   playing: true,
   controls: false,
   light: false,
-  volume: 0.8,
+  volume: 0.3,
   muted: false,
   played: 0,
   loaded: 0,
   duration: 0,
   playbackRate: 1.0,
   loop: false,
+};
+
+const resetParameter = {
+  played: 0,
+  loaded: 0,
+  playing: true,
 };
 
 export const useYoutubeController = () => {
@@ -28,16 +34,14 @@ export const useYoutubeController = () => {
     setVideo(before => ({ ...before, playing: false }));
   }, []);
 
-  const changeVolume = useCallback((newValue: number | number[]) => {
-    if (Array.isArray(newValue)) return;
+  const changeVolume = useCallback((newValue: number) => {
     setVideo(before => ({
       ...before,
       volume: newValue,
     }));
   }, []);
 
-  const changeSeek = useCallback((newValue: number | number[]) => {
-    if (Array.isArray(newValue)) return;
+  const changeSeek = useCallback((newValue: number) => {
     setVideo(before => ({
       ...before,
       played: newValue,
@@ -45,7 +49,7 @@ export const useYoutubeController = () => {
   }, []);
 
   const reset = useCallback(() => {
-    setVideo(initialParameter);
+    setVideo(before => ({ ...before, ...resetParameter }));
   }, []);
 
   return {

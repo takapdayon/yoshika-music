@@ -8,7 +8,7 @@ describe('useMusicListのテスト', () => {
     playing: true,
     controls: false,
     light: false,
-    volume: 0.8,
+    volume: 0.3,
     muted: false,
     played: 0,
     loaded: 0,
@@ -49,12 +49,6 @@ describe('useMusicListのテスト', () => {
     });
   });
 
-  test('changeVolumeでArrayであればスキップされる', () => {
-    const { result } = renderHook(() => useYoutubeController());
-    act(() => result.current.changeVolume([50]));
-    expect(result.current.videoParameter).toStrictEqual(data);
-  });
-
   test('changeSeekで値が正しくセットされること', () => {
     const { result } = renderHook(() => useYoutubeController());
     act(() => result.current.changeSeek(50));
@@ -62,11 +56,5 @@ describe('useMusicListのテスト', () => {
       ...data,
       ...{ played: 50 },
     });
-  });
-
-  test('changeSeekでArrayであればスキップされる', () => {
-    const { result } = renderHook(() => useYoutubeController());
-    act(() => result.current.changeSeek([50]));
-    expect(result.current.videoParameter).toStrictEqual(data);
   });
 });

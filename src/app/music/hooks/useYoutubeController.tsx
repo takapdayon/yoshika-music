@@ -1,63 +1,71 @@
-import { useCallback, useState } from 'react';
-import { ReactPlayerProps } from 'react-player';
+import { useCallback, useRef, useState } from 'react';
+import ReactPlayer from 'react-player';
+import { OnProgressProps } from 'react-player/base';
 
-const initialParameter = {
-  pip: false,
-  playing: true,
-  controls: false,
-  light: false,
-  volume: 0.3,
-  muted: false,
-  played: 0,
-  loaded: 0,
-  duration: 0,
-  playbackRate: 1.0,
-  loop: false,
+export const usePlayingController = () => {
+  const [playing, setPlaying] = useState(true);
+  const play = useCallback(() => setPlaying(true), []);
+  const pause = useCallback(() => setPlaying(false), []);
+
+  return { playing, play, pause };
 };
 
-const resetParameter = {
-  played: 0,
-  loaded: 0,
-  playing: true,
+export const useVolumeController = () => {
+  const [volume, setVolume] = useState(0.3);
+  const changeVolume = useCallback((value: number) => setVolume(value), []);
+
+  return { volume, changeVolume };
+};
+
+export const useSeekController = () => {
+  const [seekState, setSeekState] = useState<OnProgressProps>({
+    played: 0,
+    playedSeconds: 0,
+    loaded: 0,
+    loadedSeconds: 0,
+  });
+
+  const changeSeek = useCallback((value: number) => {
+    setSeekState(before => ({
+      ...before,
+      played: value,
+    }));
+  }, []);
+
+  return { seekState, changeSeek, setSeekState };
 };
 
 export const useYoutubeController = () => {
-  const [videoParameter, setVideo] = useState<ReactPlayerProps | null>(
-    initialParameter,
+  const [isSeeking, setIsSeeking] = useState(false);
+  const playerRef = useRef<ReactPlayer | undefined>();
+
+  const { ...volumeController } = useVolumeController();
+  const { ...playingController } = usePlayingController();
+  const { seekState, changeSeek, setSeekState } = useSeekController();
+
+  const changeSeekMouseDown = useCallback(() => setIsSeeking(true), []);
+
+  const changeSeekMouseUp = useCallback(() => {
+    setIsSeeking(false);
+    playerRef.current?.seekTo(seekState.played);
+  }, [seekState.played]);
+
+  const handleOnProgress = useCallback(
+    (state: OnProgressProps) => {
+      if (!isSeeking) {
+        setSeekState(state);
+      }
+    },
+    [isSeeking, setSeekState],
   );
 
-  const playVideo = useCallback(() => {
-    setVideo(before => ({ ...before, playing: true }));
-  }, []);
-
-  const pauseVideo = useCallback(() => {
-    setVideo(before => ({ ...before, playing: false }));
-  }, []);
-
-  const changeVolume = useCallback((newValue: number) => {
-    setVideo(before => ({
-      ...before,
-      volume: newValue,
-    }));
-  }, []);
-
-  const changeSeek = useCallback((newValue: number) => {
-    setVideo(before => ({
-      ...before,
-      played: newValue,
-    }));
-  }, []);
-
-  const reset = useCallback(() => {
-    setVideo(before => ({ ...before, ...resetParameter }));
-  }, []);
-
   return {
-    videoParameter,
-    playVideo,
-    pauseVideo,
-    changeVolume,
+    ...volumeController,
+    ...playingController,
+    seekState,
     changeSeek,
-    reset,
+    changeSeekMouseDown,
+    changeSeekMouseUp,
+    handleOnProgress,
   };
 };

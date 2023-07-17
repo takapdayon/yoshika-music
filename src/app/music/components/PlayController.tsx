@@ -9,35 +9,27 @@ import {
 import { Stack, Slider, IconButton, Box } from '@mui/material';
 import Card from '@mui/material/Card';
 import { memo, useCallback } from 'react';
-import { ReactPlayerProps } from 'react-player';
+import { OnProgressProps } from 'react-player/base';
 
 import { CustomCardContent } from '@/components/CustomCard';
 import { MusicType } from '@/types';
-
-type Common = {
-  videoParameter: ReactPlayerProps | null;
-};
 
 type SwitchPlayPauseProps = {
   playingMusic: MusicType | undefined;
   playVideo: () => void;
   pauseVideo: () => void;
-} & Common;
+  playing: boolean;
+};
 
 const SwitchPlayPause = memo(
-  ({
-    playVideo,
-    pauseVideo,
-    playingMusic,
-    videoParameter,
-  }: SwitchPlayPauseProps) => (
+  ({ playVideo, pauseVideo, playingMusic, playing }: SwitchPlayPauseProps) => (
     <IconButton
       disabled={!playingMusic?.id}
-      aria-label={videoParameter?.playing ? 'pause' : 'play'}
-      onClick={videoParameter?.playing ? pauseVideo : playVideo}
+      aria-label={playing ? 'pause' : 'play'}
+      onClick={playing ? pauseVideo : playVideo}
       size="small"
     >
-      {videoParameter?.playing ? (
+      {playing ? (
         <PauseRounded sx={{ fontSize: '3rem' }} />
       ) : (
         <PlayArrowRounded sx={{ fontSize: '3rem' }} />
@@ -50,8 +42,12 @@ type PlayControllerProps = {
   playingMusicNum: number;
   musicList: MusicType[];
   playedMusicList: MusicType[];
+  volume: number;
+  seekState: OnProgressProps;
   changeVolume: (newValue: number) => void;
   changeSeek: (newValue: number) => void;
+  changeSeekMouseUp: () => void;
+  changeSeekMouseDown: () => void;
   onBackPlayMusic: () => void;
   onForwardPlayMusic: () => void;
 } & SwitchPlayPauseProps;
@@ -64,11 +60,15 @@ export const PlayController = memo(
     changeSeek,
     onBackPlayMusic,
     onForwardPlayMusic,
+    changeSeekMouseUp,
+    changeSeekMouseDown,
+    seekState,
     playingMusicNum,
     musicList,
     playedMusicList,
     playingMusic,
-    videoParameter,
+    playing,
+    volume,
   }: PlayControllerProps) => {
     const handleOnChangeVolume = useCallback(
       (_: Event, value: number | number[]) => {
@@ -89,6 +89,25 @@ export const PlayController = memo(
     return (
       <Card sx={{ width: 1, position: 'fixed', bottom: 0 }} variant="outlined">
         <CustomCardContent>
+          <Box
+            sx={{ width: '85%', pt: 1 }}
+            display="flex"
+            justifyContent="center"
+          >
+            <Slider
+              size="small"
+              aria-label="Small"
+              valueLabelDisplay="off"
+              onMouseUp={changeSeekMouseUp}
+              onMouseDown={changeSeekMouseDown}
+              onChange={handleOnChangeSeek}
+              min={0}
+              max={1}
+              step={0.00000000000001}
+              value={seekState.played}
+              sx={{ padding: 0, zIndex: 10 }}
+            />
+          </Box>
           <Stack
             direction="row"
             spacing={2}
@@ -107,7 +126,7 @@ export const PlayController = memo(
               playVideo={playVideo}
               pauseVideo={pauseVideo}
               playingMusic={playingMusic}
-              videoParameter={videoParameter}
+              playing={playing}
             />
             <IconButton
               disabled={
@@ -140,7 +159,7 @@ export const PlayController = memo(
                 size="small"
                 aria-label="Volume"
                 valueLabelDisplay="auto"
-                value={videoParameter?.volume}
+                value={volume}
                 valueLabelFormat={value => (value * 100).toFixed(0).toString()}
                 onChange={handleOnChangeVolume}
                 min={0}

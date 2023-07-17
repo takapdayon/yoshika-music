@@ -1,60 +1,65 @@
 import { act, renderHook } from '@testing-library/react';
 
-import { useYoutubeController } from '../useYoutubeController';
+import {
+  usePlayingController,
+  useSeekController,
+  useVolumeController,
+} from '../useYoutubeController';
 
-describe('useMusicListのテスト', () => {
-  const data = {
-    pip: false,
-    playing: true,
-    controls: false,
-    light: false,
-    volume: 0.3,
-    muted: false,
-    played: 0,
-    loaded: 0,
-    duration: 0,
-    playbackRate: 1.0,
-    loop: false,
-  };
-
+describe('usePlayingControllerのテスト', () => {
   test('初期値が正しくセットされること', () => {
-    const { result } = renderHook(() => useYoutubeController());
-    expect(result.current.videoParameter).toStrictEqual(data);
+    const { result } = renderHook(() => usePlayingController());
+    expect(result.current.playing).toBe(true);
   });
-
-  test('playVideoで値が正しくセットされること', () => {
-    const { result } = renderHook(() => useYoutubeController());
-    act(() => result.current.playVideo());
-    expect(result.current.videoParameter).toStrictEqual({
-      ...data,
-      ...{ playing: true },
-    });
+  test('playで値が正しくセットされること', () => {
+    const { result } = renderHook(() => usePlayingController());
+    act(() => result.current.play());
+    expect(result.current.playing).toBe(true);
   });
-
-  test('pauseVideoで値が正しくセットされること', () => {
-    const { result } = renderHook(() => useYoutubeController());
-    act(() => result.current.pauseVideo());
-    expect(result.current.videoParameter).toStrictEqual({
-      ...data,
-      ...{ playing: false },
-    });
+  test('pauseで値が正しくセットされること', () => {
+    const { result } = renderHook(() => usePlayingController());
+    act(() => result.current.pause());
+    expect(result.current.playing).toBe(false);
   });
+});
 
+describe('useVolumeControllerのテスト', () => {
+  test('初期値が正しくセットされること', () => {
+    const { result } = renderHook(() => useVolumeController());
+    expect(result.current.volume).toBe(0.3);
+  });
   test('changeVolumeで値が正しくセットされること', () => {
-    const { result } = renderHook(() => useYoutubeController());
-    act(() => result.current.changeVolume(50));
-    expect(result.current.videoParameter).toStrictEqual({
-      ...data,
-      ...{ volume: 50 },
-    });
+    const { result } = renderHook(() => useVolumeController());
+    act(() => result.current.changeVolume(1));
+    expect(result.current.volume).toBe(1);
   });
+});
 
+describe('useSeekControllerのテスト', () => {
+  const data = {
+    played: 0,
+    playedSeconds: 0,
+    loaded: 0,
+    loadedSeconds: 0,
+  };
+  test('初期値が正しくセットされること', () => {
+    const { result } = renderHook(() => useSeekController());
+    expect(result.current.seekState).toStrictEqual(data);
+  });
   test('changeSeekで値が正しくセットされること', () => {
-    const { result } = renderHook(() => useYoutubeController());
-    act(() => result.current.changeSeek(50));
-    expect(result.current.videoParameter).toStrictEqual({
-      ...data,
-      ...{ played: 50 },
-    });
+    const { result } = renderHook(() => useSeekController());
+    act(() => result.current.changeSeek(0.005));
+    expect(result.current.seekState).toStrictEqual({ ...data, played: 0.005 });
+  });
+  test('changeSeekで値が正しくセットされること', () => {
+    const { result } = renderHook(() => useSeekController());
+    const testData = {
+      played: 0.0005,
+      playedSeconds: 0.0005,
+      loaded: 0.0005,
+      loadedSeconds: 0.0005,
+    };
+    act(() => result.current.setSeekState(testData));
+    expect(result.current.seekState).toStrictEqual(testData);
   });
 });

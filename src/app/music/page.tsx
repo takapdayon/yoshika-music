@@ -23,8 +23,18 @@ const Page = () => {
     onForwardPlayMusic,
   } = useMusicList();
 
-  const { videoParameter, playVideo, pauseVideo, changeVolume, changeSeek } =
-    useYoutubeController();
+  const {
+    volume,
+    changeVolume,
+    playing,
+    play,
+    pause,
+    seekState,
+    changeSeek,
+    changeSeekMouseDown,
+    changeSeekMouseUp,
+    handleOnProgress,
+  } = useYoutubeController();
 
   return (
     <>
@@ -37,7 +47,8 @@ const Page = () => {
             <YoutubeDisplay
               playingMusic={playingMusic}
               onEndPlayingMusic={onEndPlayingMusic}
-              videoParameter={videoParameter}
+              reactPlayerProps={{ playing, volume }}
+              handleOnProgress={handleOnProgress}
             />
           </Grid>
           <Grid sx={{ height: 1 / 2 }}>
@@ -54,17 +65,21 @@ const Page = () => {
         </Grid>
       </Grid>
       <PlayController
-        playVideo={playVideo}
-        pauseVideo={pauseVideo}
+        playVideo={play}
+        pauseVideo={pause}
         changeVolume={changeVolume}
         changeSeek={changeSeek}
+        volume={volume}
+        playing={playing}
         playingMusicNum={playingMusicNum}
         musicList={musicList}
         playedMusicList={playedMusicList}
         playingMusic={playingMusic}
-        videoParameter={videoParameter}
         onBackPlayMusic={onBackPlayMusic}
         onForwardPlayMusic={onForwardPlayMusic}
+        changeSeekMouseUp={changeSeekMouseUp}
+        changeSeekMouseDown={changeSeekMouseDown}
+        seekState={seekState}
       />
     </>
   );

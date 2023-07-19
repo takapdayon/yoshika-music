@@ -3,9 +3,9 @@ import { forwardRef, useEffect, useMemo, useState } from 'react';
 import ReactPlayer, { ReactPlayerProps } from 'react-player';
 import { OnProgressProps } from 'react-player/base';
 
-import { MusicType } from '@/types';
+import { OutputMusic } from '../types';
 
-const useYoutubeDisplayHook = (playingMusic: MusicType | undefined) => {
+const useYoutubeDisplayHook = (playingMusic: OutputMusic | undefined) => {
   const youtubeUrl = useMemo(
     () =>
       playingMusic
@@ -29,7 +29,7 @@ const useYoutubeDisplayHook = (playingMusic: MusicType | undefined) => {
 };
 
 type YoutubeDisplayProps = {
-  playingMusic: MusicType | undefined;
+  playingMusic: OutputMusic | undefined;
   onEndPlayingMusic: () => void;
   reactPlayerProps: ReactPlayerProps | null;
   handleOnProgress: (state: OnProgressProps) => void;

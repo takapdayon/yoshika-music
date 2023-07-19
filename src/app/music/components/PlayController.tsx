@@ -11,11 +11,12 @@ import Card from '@mui/material/Card';
 import { memo, useCallback } from 'react';
 import { OnProgressProps } from 'react-player/base';
 
+import { OutputMusic } from '../types';
+
 import { CustomCardContent } from '@/components/CustomCard';
-import { MusicType } from '@/types';
 
 type SwitchPlayPauseProps = {
-  playingMusic: MusicType | undefined;
+  playingMusic: OutputMusic | undefined;
   playVideo: () => void;
   pauseVideo: () => void;
   playing: boolean;
@@ -40,8 +41,8 @@ const SwitchPlayPause = memo(
 
 type PlayControllerProps = {
   playingMusicNum: number;
-  musicList: MusicType[];
-  playedMusicList: MusicType[];
+  musicList: OutputMusic[];
+  playedMusicList: OutputMusic[];
   volume: number;
   seekState: OnProgressProps;
   changeVolume: (newValue: number) => void;
@@ -102,9 +103,10 @@ export const PlayController = memo(
               onMouseDown={changeSeekMouseDown}
               onChange={handleOnChangeSeek}
               min={0}
-              max={1}
-              step={0.00000000000001}
-              value={seekState.played}
+              max={playingMusic?.playTime}
+              value={
+                seekState.playedSeconds - (playingMusic?.playStartTime ?? 0)
+              }
               sx={{ padding: 0, zIndex: 10 }}
             />
           </Box>

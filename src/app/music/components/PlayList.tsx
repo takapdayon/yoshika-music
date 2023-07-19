@@ -10,10 +10,10 @@ import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import Paper from '@mui/material/Paper';
 
-import { MusicType } from '@/types';
+import { OutputMusic } from '../types';
 
 type PlayListProps = {
-  musicList: MusicType[];
+  musicList: OutputMusic[];
   playingMusicNum: number;
   delPlayList: (index: number) => void;
   selectPlayMusic: (selectedMusicNum: number) => void;

@@ -1,18 +1,18 @@
 import { useCallback, useMemo, useState } from 'react';
 
-import { MusicType } from '@/types';
+import { OutputMusic } from '../types';
 
 export const useMusicList = () => {
   const [playingMusicNum, setPlayingMusicNum] = useState<number>(0);
-  const [musicList, setMusicList] = useState<MusicType[]>([]);
-  const [playedMusicList, setPlayedMusicList] = useState<MusicType[]>([]);
+  const [musicList, setMusicList] = useState<OutputMusic[]>([]);
+  const [playedMusicList, setPlayedMusicList] = useState<OutputMusic[]>([]);
 
   const playingMusic = useMemo(
     () => musicList.find((music, index) => index === playingMusicNum),
     [musicList, playingMusicNum],
   );
 
-  const addPlayList = useCallback((selectedMusic: MusicType) => {
+  const addPlayList = useCallback((selectedMusic: OutputMusic) => {
     setMusicList(before => [...before, selectedMusic]);
   }, []);
 

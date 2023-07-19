@@ -8,7 +8,7 @@ import {
   TableRow,
 } from '@mui/material';
 
-import { MusicType } from '@/types';
+import { InputMusic, Music, OutputMusic } from '../types';
 
 function createData(
   id: string,
@@ -27,7 +27,7 @@ function createData(
     playStartTime,
     playEndTime,
     youtubeTitle,
-  } as MusicType;
+  } as InputMusic;
 }
 
 const rows = [
@@ -169,7 +169,7 @@ const rows = [
 ];
 
 type MusicTableProps = {
-  addPlayList: (selectedMusic: MusicType) => void;
+  addPlayList: (selectedMusic: OutputMusic) => void;
 };
 
 const headers = ['タイトル', 'アーティスト', '再生時間', '動画タイトル'];
@@ -190,7 +190,7 @@ export const MusicTable = ({ addPlayList }: MusicTableProps) => (
         {rows.map(row => (
           <TableRow
             hover
-            onClick={() => addPlayList(row)}
+            onClick={() => addPlayList(Music.parse(row))}
             key={row.id}
             sx={{
               '&:last-child td, &:last-child th': { border: 0 },

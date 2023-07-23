@@ -30,6 +30,7 @@ const Page = () => {
     play,
     pause,
     seekState,
+    playerRef,
     changeSeek,
     changeSeekMouseDown,
     changeSeekMouseUp,
@@ -45,6 +46,7 @@ const Page = () => {
         <Grid xs={5} sx={{ height: 1 }}>
           <Grid sx={{ height: 1 / 2, pb: 2 }}>
             <YoutubeDisplay
+              ref={playerRef}
               playingMusic={playingMusic}
               onEndPlayingMusic={onEndPlayingMusic}
               reactPlayerProps={{ playing, volume }}

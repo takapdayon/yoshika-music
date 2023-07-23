@@ -28,7 +28,7 @@ export const useSeekController = () => {
   const changeSeek = useCallback((value: number) => {
     setSeekState(before => ({
       ...before,
-      played: value,
+      playedSeconds: value,
     }));
   }, []);
 
@@ -37,7 +37,7 @@ export const useSeekController = () => {
 
 export const useYoutubeController = () => {
   const [isSeeking, setIsSeeking] = useState(false);
-  const playerRef = useRef<ReactPlayer | undefined>();
+  const playerRef = useRef<ReactPlayer | null>(null);
 
   const { ...volumeController } = useVolumeController();
   const { ...playingController } = usePlayingController();
@@ -47,8 +47,9 @@ export const useYoutubeController = () => {
 
   const changeSeekMouseUp = useCallback(() => {
     setIsSeeking(false);
-    playerRef.current?.seekTo(seekState.played);
-  }, [seekState.played]);
+    console.log('よばれるじょー', playerRef);
+    playerRef.current?.seekTo(seekState.playedSeconds, 'seconds');
+  }, [seekState.playedSeconds]);
 
   const handleOnProgress = useCallback(
     (state: OnProgressProps) => {
@@ -62,6 +63,7 @@ export const useYoutubeController = () => {
   return {
     ...volumeController,
     ...playingController,
+    playerRef,
     seekState,
     changeSeek,
     changeSeekMouseDown,

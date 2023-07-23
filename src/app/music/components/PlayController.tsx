@@ -97,17 +97,14 @@ export const PlayController = memo(
           >
             <Slider
               size="small"
-              aria-label="Small"
               valueLabelDisplay="off"
               onMouseUp={changeSeekMouseUp}
               onMouseDown={changeSeekMouseDown}
               onChange={handleOnChangeSeek}
-              min={0}
-              max={playingMusic?.playTime}
-              value={
-                seekState.playedSeconds - (playingMusic?.playStartTime ?? 0)
-              }
-              sx={{ padding: 0, zIndex: 10 }}
+              min={playingMusic?.playStartTime}
+              max={playingMusic?.playEndTime}
+              value={seekState.playedSeconds}
+              sx={{ padding: 0, zIndex: 1000 }}
             />
           </Box>
           <Stack

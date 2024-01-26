@@ -62,7 +62,16 @@ const Page = () => {
             />
           </Grid>
         </Grid>
-        <Grid xs={7} sx={{ pl: 2, height: 1 }}>
+        <Grid
+          xs={7}
+          sx={{
+            pl: 2,
+            height: 1,
+            '& ::-webkit-scrollbar': {
+              display: 'none',
+            },
+          }}
+        >
           <MusicTable addPlayList={addPlayList} />
         </Grid>
       </Grid>

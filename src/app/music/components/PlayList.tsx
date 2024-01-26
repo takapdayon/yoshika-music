@@ -25,12 +25,24 @@ export const PlayList = ({
   delPlayList,
   selectPlayMusic,
 }: PlayListProps) => (
-  <Box sx={{ width: 1, height: 1 }} component={Paper}>
+  <Box
+    sx={{
+      width: 1,
+      height: 1,
+      '& ::-webkit-scrollbar': {
+        display: 'none',
+      },
+    }}
+    component={Paper}
+  >
     <List
       component="nav"
       aria-label="main mailbox folders"
       subheader={<ListSubheader>再生リスト</ListSubheader>}
-      sx={{ overflow: 'auto', maxHeight: 1 }}
+      sx={{
+        overflow: 'auto',
+        maxHeight: 1,
+      }}
     >
       {musicList.map((music, index) => (
         <ListItem
@@ -45,6 +57,7 @@ export const PlayList = ({
               <DeleteIcon />
             </IconButton>
           }
+          disablePadding
         >
           <ListItemButton
             selected={playingMusicNum === index}

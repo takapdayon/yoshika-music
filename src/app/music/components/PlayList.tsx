@@ -29,9 +29,6 @@ export const PlayList = ({
     sx={{
       width: 1,
       height: 1,
-      '& ::-webkit-scrollbar': {
-        display: 'none',
-      },
     }}
     component={Paper}
   >

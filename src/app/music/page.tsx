@@ -1,6 +1,7 @@
 'use client';
 
-import Grid from '@mui/material/Unstable_Grid2';
+import { Box, Stack } from '@mui/material';
+import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 
 import { YoutubeDisplay } from './components/Display';
 import { PlayController } from './components/PlayController';
@@ -39,42 +40,49 @@ const Page = () => {
 
   return (
     <>
-      <Grid
-        container
-        sx={{ mb: '100px', height: `calc(100% - 100px)`, padding: 2 }}
-      >
-        <Grid xs={5} sx={{ height: 1 }}>
-          <Grid sx={{ height: 1 / 2, pb: 2 }}>
-            <YoutubeDisplay
-              ref={playerRef}
-              playingMusic={playingMusic}
-              onEndPlayingMusic={onEndPlayingMusic}
-              reactPlayerProps={{ playing, volume }}
-              handleOnProgress={handleOnProgress}
-            />
-          </Grid>
-          <Grid sx={{ height: 1 / 2 }}>
-            <PlayList
-              musicList={musicList}
-              playingMusicNum={playingMusicNum}
-              delPlayList={delPlayList}
-              selectPlayMusic={selectPlayMusic}
-            />
-          </Grid>
-        </Grid>
-        <Grid
+      <Grid2 container spacing={2} sx={{ height: 1, width: 1, px: 3 }}>
+        <Grid2 xs={5} sx={{ height: '85%', maxHeight: '85%' }}>
+          <Stack spacing={2} sx={{ height: 1 }}>
+            <Box sx={{ height: '60%', maxHeight: '60%', borderRadius: 2 }}>
+              <YoutubeDisplay
+                ref={playerRef}
+                playingMusic={playingMusic}
+                onEndPlayingMusic={onEndPlayingMusic}
+                reactPlayerProps={{ playing, volume }}
+                handleOnProgress={handleOnProgress}
+              />
+            </Box>
+            <Box
+              sx={{
+                height: '40%',
+                maxHeight: '40%',
+                '& ::-webkit-scrollbar': {
+                  display: 'none',
+                },
+              }}
+            >
+              <PlayList
+                musicList={musicList}
+                playingMusicNum={playingMusicNum}
+                delPlayList={delPlayList}
+                selectPlayMusic={selectPlayMusic}
+              />
+            </Box>
+          </Stack>
+        </Grid2>
+        <Grid2
           xs={7}
           sx={{
-            pl: 2,
-            height: 1,
+            height: '85%',
+            maxHeight: '85%',
             '& ::-webkit-scrollbar': {
               display: 'none',
             },
           }}
         >
           <MusicTable addPlayList={addPlayList} />
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
       <PlayController
         playVideo={play}
         pauseVideo={pause}

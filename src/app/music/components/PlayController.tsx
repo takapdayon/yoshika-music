@@ -28,12 +28,12 @@ const SwitchPlayPause = memo(
       disabled={!playingMusic?.id}
       aria-label={playing ? 'pause' : 'play'}
       onClick={playing ? pauseVideo : playVideo}
-      size="small"
+      size="large"
     >
       {playing ? (
-        <PauseRounded sx={{ fontSize: '3rem' }} />
+        <PauseRounded fontSize="inherit" />
       ) : (
-        <PlayArrowRounded sx={{ fontSize: '3rem' }} />
+        <PlayArrowRounded fontSize="inherit" />
       )}
     </IconButton>
   ),
@@ -88,13 +88,18 @@ export const PlayController = memo(
     );
 
     return (
-      <Card sx={{ width: 1, position: 'fixed', bottom: 0 }} variant="outlined">
+      <Card
+        sx={{
+          width: 1,
+          position: 'fixed',
+          bottom: 0,
+          border: 'none',
+          borderShadow: 'none',
+        }}
+        variant="outlined"
+      >
         <CustomCardContent>
-          <Box
-            sx={{ width: '85%', pt: 1 }}
-            display="flex"
-            justifyContent="center"
-          >
+          <Box sx={{ width: 1, pt: 3 }} display="flex" justifyContent="center">
             <Slider
               size="small"
               valueLabelDisplay="off"
@@ -117,9 +122,9 @@ export const PlayController = memo(
               disabled={!playedMusicList.length}
               aria-label="previous song"
               onClick={onBackPlayMusic}
-              size="small"
+              size="large"
             >
-              <FirstPageRounded fontSize="large" />
+              <FirstPageRounded fontSize="inherit" />
             </IconButton>
             <SwitchPlayPause
               playVideo={playVideo}
@@ -133,9 +138,9 @@ export const PlayController = memo(
               }
               aria-label="next song"
               onClick={onForwardPlayMusic}
-              size="small"
+              size="large"
             >
-              <LastPageRounded fontSize="large" />
+              <LastPageRounded fontSize="inherit" />
             </IconButton>
           </Stack>
           <Box
@@ -152,6 +157,8 @@ export const PlayController = memo(
               sx={{
                 width: 350,
               }}
+              justifyContent="center"
+              alignItems="center"
             >
               <VolumeDownRounded />
               <Slider

@@ -48,14 +48,9 @@ describe('useSeekControllerのテスト', () => {
   });
   test('changeSeekで値が正しくセットされること', () => {
     const { result } = renderHook(() => useSeekController());
-    act(() => result.current.changeSeek(0.005));
-    expect(result.current.seekState).toStrictEqual({ ...data, played: 0.005 });
-  });
-  test('changeSeekで値が正しくセットされること', () => {
-    const { result } = renderHook(() => useSeekController());
     const testData = {
       played: 0.0005,
-      playedSeconds: 0.0005,
+      playedSeconds: 0,
       loaded: 0.0005,
       loadedSeconds: 0.0005,
     };

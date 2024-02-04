@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "lint-staged": "lint-staged",
-    "test": "vitest run"
+    "test": "vitest run",
+    "cmd:create-slash-command": "npx ts-node --esm --require dotenv/config commands/createSlashCommand.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -19,7 +20,8 @@
     "@types/node": "20.3.1",
     "@types/react": "18.2.12",
     "@types/react-dom": "18.2.5",
-    "@vercel/kv": "^0.2.2",
+    "@vercel/kv": "^0.2.4",
+    "discord-interactions": "^3.4.0",
     "eslint-config-next": "13.4.6",
     "next": "13.4.6",
     "react": "18.2.0",
@@ -40,6 +42,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@vitejs/plugin-react": "^4.0.1",
+    "dotenv": "^16.4.1",
     "eslint": "^8.43.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",

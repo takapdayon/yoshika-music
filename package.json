@@ -9,7 +9,7 @@
     "lint": "next lint",
     "lint-staged": "lint-staged",
     "test": "vitest run",
-    "cmd:create-slash-command": "npx ts-node --esm --require dotenv/config commands/createSlashCommand.ts"
+    "cmd:create-slash-command": "npx ts-node --esm --require dotenv/config commands/createSlashCommand.mts"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -42,6 +42,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@vitejs/plugin-react": "^4.0.1",
+    "discord.js": "^14.14.1",
     "dotenv": "^16.4.1",
     "eslint": "^8.43.0",
     "eslint-config-airbnb": "^19.0.4",

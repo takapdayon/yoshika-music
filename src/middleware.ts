@@ -13,7 +13,7 @@ export const middleware = async (req: NextRequest) => {
   if (!isValidRequest) {
     return NextResponse.json(
       { success: false, message: 'captain teemo' },
-      { status: 403 },
+      { status: 401 },
     );
   }
   return NextResponse.next();

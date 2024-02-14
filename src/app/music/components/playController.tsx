@@ -13,7 +13,7 @@ import { OnProgressProps } from 'react-player/base';
 
 import { OutputMusic } from '../types';
 
-import { CustomCardContent } from '@/components/CustomCard';
+import { CustomCardContent } from '@/components/customCard';
 
 type SwitchPlayPauseProps = {
   playingMusic: OutputMusic | undefined;

@@ -4,9 +4,9 @@ import { Box, Stack } from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 
 import { YoutubeDisplay } from './components/Display';
-import { PlayController } from './components/PlayController';
-import { PlayList } from './components/PlayList';
-import { MusicTable } from './components/Table';
+import { PlayController } from './components/playController';
+import { PlayList } from './components/playList';
+import { MusicTable } from './components/table';
 import { usePlayList } from './hooks/usePlayList';
 import { useYoutubeController } from './hooks/useYoutubeController';
 import { OutputMusic } from './types';

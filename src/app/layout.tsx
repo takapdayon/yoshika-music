@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { MainLayout } from '@/components/MainLayout';
+import { MainLayout } from '@/components/mainLayout';
 import { AppProvider } from '@/providers';
 
 export const metadata = {

@@ -1,6 +1,6 @@
 import { kv } from '@vercel/kv';
 
-import ClientPage from './ClientPage';
+import ClientPage from './clientPage';
 import { InputMusic, Music } from './types';
 
 const { MUSICLIST_KEYNAME = '' } = process.env;

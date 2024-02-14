@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const Music = z
   .object({
     id: z.string(),
-    youtubeId: z.string(),
+    youtubeUrl: z.string(),
     title: z.string(),
     artist: z.string(),
     playStartTime: z.number(),

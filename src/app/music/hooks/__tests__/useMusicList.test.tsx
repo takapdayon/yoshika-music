@@ -1,11 +1,11 @@
 import { act, renderHook } from '@testing-library/react';
 
-import { useMusicList } from '../useMusicList';
+import { useMusicList } from '../usePlayList';
 
 describe('useMusicListのテスト', () => {
   const data1 = {
     id: '001',
-    youtubeId: '9QyhCXilmd0',
+    youtubeUrl: '9QyhCXilmd0',
     title: 'アイドル',
     artist: 'YOASOBI',
     playStartTime: 4230,
@@ -15,7 +15,7 @@ describe('useMusicListのテスト', () => {
   };
   const data2 = {
     id: '002',
-    youtubeId: '9QyhCXilmd0',
+    youtubeUrl: '9QyhCXilmd0',
     title: 'アイドル',
     artist: 'YOASOBI',
     playStartTime: 3230,

@@ -7,10 +7,7 @@ import { OutputMusic } from '../types';
 
 const useYoutubeDisplayHook = (playingMusic: OutputMusic | undefined) => {
   const youtubeUrl = useMemo(
-    () =>
-      playingMusic
-        ? `https://www.youtube.com/watch?v=${playingMusic.youtubeId}`
-        : '',
+    () => (playingMusic ? playingMusic.youtubeUrl : ''),
     [playingMusic],
   );
 

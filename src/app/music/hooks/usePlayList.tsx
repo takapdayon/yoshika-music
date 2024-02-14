@@ -2,22 +2,22 @@ import { useCallback, useMemo, useState } from 'react';
 
 import { OutputMusic } from '../types';
 
-export const useMusicList = () => {
+export const usePlayList = () => {
   const [playingMusicNum, setPlayingMusicNum] = useState<number>(0);
-  const [musicList, setMusicList] = useState<OutputMusic[]>([]);
-  const [playedMusicList, setPlayedMusicList] = useState<OutputMusic[]>([]);
+  const [playList, setPlayList] = useState<OutputMusic[]>([]);
+  const [playedPlayList, setPlayedPlayList] = useState<OutputMusic[]>([]);
 
   const playingMusic = useMemo(
-    () => musicList.find((music, index) => index === playingMusicNum),
-    [musicList, playingMusicNum],
+    () => playList.find((music, index) => index === playingMusicNum),
+    [playList, playingMusicNum],
   );
 
   const addPlayList = useCallback((selectedMusic: OutputMusic) => {
-    setMusicList(before => [...before, selectedMusic]);
+    setPlayList(before => [...before, selectedMusic]);
   }, []);
 
   const delPlayList = (index: number) => {
-    setMusicList(before => before.filter((_, i) => i !== index));
+    setPlayList(before => before.filter((_, i) => i !== index));
   };
 
   const selectPlayMusic = useCallback((selectedMusicNum: number) => {
@@ -27,10 +27,10 @@ export const useMusicList = () => {
   const onEndPlayingMusic = useCallback(
     (setNumber = 0) => {
       setPlayingMusicNum(setNumber);
-      setMusicList(before =>
+      setPlayList(before =>
         before.filter((music, index) => index !== playingMusicNum),
       );
-      setPlayedMusicList(before =>
+      setPlayedPlayList(before =>
         playingMusic ? [...before, playingMusic] : before,
       );
     },
@@ -39,10 +39,10 @@ export const useMusicList = () => {
 
   const onBackPlayMusic = useCallback(() => {
     setPlayingMusicNum(0);
-    const lastPlayedMusic = playedMusicList.slice(-1)[0];
-    setPlayedMusicList(before => before.slice(0, -1));
-    setMusicList(before => [lastPlayedMusic, ...before]);
-  }, [playedMusicList]);
+    const lastPlayedMusic = playedPlayList.slice(-1)[0];
+    setPlayedPlayList(before => before.slice(0, -1));
+    setPlayList(before => [lastPlayedMusic, ...before]);
+  }, [playedPlayList]);
 
   const onForwardPlayMusic = useCallback(() => {
     onEndPlayingMusic(playingMusicNum);
@@ -50,8 +50,8 @@ export const useMusicList = () => {
 
   return {
     playingMusicNum,
-    musicList,
-    playedMusicList,
+    playList,
+    playedPlayList,
     playingMusic,
     addPlayList,
     delPlayList,

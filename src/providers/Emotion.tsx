@@ -1,7 +1,3 @@
-// app/emotion.tsx
-
-'use client';
-
 // https://github.com/emotion-js/emotion/issues/2928#issuecomment-1293012737
 
 import createCache from '@emotion/cache';

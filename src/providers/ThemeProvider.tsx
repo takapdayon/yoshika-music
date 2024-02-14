@@ -1,23 +1,14 @@
-// src/app/MuiSetup.tsx
-
-'use client';
-
-import {
-  createTheme,
-  CssBaseline,
-  ThemeProvider as MuiThemeProvider,
-} from '@mui/material';
+import { CssBaseline, ThemeProvider as MuiThemeProvider } from '@mui/material';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { ReactNode } from 'react';
 
-const muiTheme = createTheme({
-  typography: {
-    fontFamily: ['Noto Sans JP', 'sans-serif'].join(','),
-  },
-});
+import muiTheme from './theme';
 
 export const MuiProvider = ({ children }: { children: ReactNode }) => (
-  <MuiThemeProvider theme={muiTheme}>
-    <CssBaseline />
-    {children}
-  </MuiThemeProvider>
+  <AppRouterCacheProvider>
+    <MuiThemeProvider theme={muiTheme}>
+      <CssBaseline />
+      {children}
+    </MuiThemeProvider>
+  </AppRouterCacheProvider>
 );

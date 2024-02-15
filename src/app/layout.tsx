@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 import { MainLayout } from '@/components/mainLayout';
-import { AppProvider } from '@/providers';
+import AppProvider from '@/providers';
 
 export const metadata = {
   title: 'Create Next App',
@@ -17,6 +17,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => (
       <AppProvider>
         <MainLayout>{children}</MainLayout>
       </AppProvider>
+      {children}
     </body>
   </html>
 );

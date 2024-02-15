@@ -47,7 +47,6 @@ export const useYoutubeController = () => {
 
   const changeSeekMouseUp = useCallback(() => {
     setIsSeeking(false);
-    console.log('よばれるじょー', playerRef);
     playerRef.current?.seekTo(seekState.playedSeconds, 'seconds');
   }, [seekState.playedSeconds]);
 

@@ -1,14 +1,16 @@
-import { CssBaseline, ThemeProvider as MuiThemeProvider } from '@mui/material';
+import { CssBaseline } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { ReactNode } from 'react';
 
 import muiTheme from './theme';
 
-export const MuiProvider = ({ children }: { children: ReactNode }) => (
+const MuiProvider = ({ children }: { children: ReactNode }) => (
   <AppRouterCacheProvider>
-    <MuiThemeProvider theme={muiTheme}>
+    <ThemeProvider theme={muiTheme}>
       <CssBaseline />
       {children}
-    </MuiThemeProvider>
+    </ThemeProvider>
   </AppRouterCacheProvider>
 );
+export default MuiProvider;

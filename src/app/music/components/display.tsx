@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, Skeleton } from '@mui/material';
 import { forwardRef, useEffect, useMemo, useState } from 'react';
 import ReactPlayer, { ReactPlayerProps } from 'react-player';

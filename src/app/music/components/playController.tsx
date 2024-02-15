@@ -1,3 +1,5 @@
+'use client';
+
 import {
   FirstPageRounded,
   LastPageRounded,
@@ -41,8 +43,8 @@ const SwitchPlayPause = memo(
 
 type PlayControllerProps = {
   playingMusicNum: number;
-  musicList: OutputMusic[];
-  playedMusicList: OutputMusic[];
+  playList: OutputMusic[];
+  playedPlayList: OutputMusic[];
   volume: number;
   seekState: OnProgressProps;
   changeVolume: (newValue: number) => void;
@@ -65,8 +67,8 @@ export const PlayController = memo(
     changeSeekMouseDown,
     seekState,
     playingMusicNum,
-    musicList,
-    playedMusicList,
+    playList,
+    playedPlayList,
     playingMusic,
     playing,
     volume,
@@ -119,7 +121,7 @@ export const PlayController = memo(
             justifyContent="center"
           >
             <IconButton
-              disabled={!playedMusicList.length}
+              disabled={!playedPlayList.length}
               aria-label="previous song"
               onClick={onBackPlayMusic}
               size="large"
@@ -134,7 +136,7 @@ export const PlayController = memo(
             />
             <IconButton
               disabled={
-                !(musicList.length && playingMusicNum !== musicList.length - 1)
+                !(playList.length && playingMusicNum !== playList.length - 1)
               }
               aria-label="next song"
               onClick={onForwardPlayMusic}

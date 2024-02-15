@@ -3,7 +3,7 @@
 import { Box, Stack } from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 
-import { YoutubeDisplay } from './components/Display';
+import { YoutubeDisplay } from './components/display';
 import { PlayController } from './components/playController';
 import { PlayList } from './components/playList';
 import { MusicTable } from './components/table';
@@ -63,7 +63,7 @@ const ClientPage = ({ musicList }: { musicList: OutputMusic[] }) => {
               }}
             >
               <PlayList
-                musicList={musicList}
+                playList={playList}
                 playingMusicNum={playingMusicNum}
                 delPlayList={delPlayList}
                 selectPlayMusic={selectPlayMusic}
@@ -92,8 +92,8 @@ const ClientPage = ({ musicList }: { musicList: OutputMusic[] }) => {
         volume={volume}
         playing={playing}
         playingMusicNum={playingMusicNum}
-        musicList={playList}
-        playedMusicList={playedPlayList}
+        playList={playList}
+        playedPlayList={playedPlayList}
         playingMusic={playingMusic}
         onBackPlayMusic={onBackPlayMusic}
         onForwardPlayMusic={onForwardPlayMusic}

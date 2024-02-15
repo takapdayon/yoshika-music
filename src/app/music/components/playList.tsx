@@ -1,3 +1,5 @@
+'use client';
+
 import DeleteIcon from '@mui/icons-material/Delete';
 import HeadphonesIcon from '@mui/icons-material/Headphones';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
@@ -13,14 +15,14 @@ import Paper from '@mui/material/Paper';
 import { OutputMusic } from '../types';
 
 type PlayListProps = {
-  musicList: OutputMusic[];
+  playList: OutputMusic[];
   playingMusicNum: number;
   delPlayList: (index: number) => void;
   selectPlayMusic: (selectedMusicNum: number) => void;
 };
 
 export const PlayList = ({
-  musicList,
+  playList,
   playingMusicNum,
   delPlayList,
   selectPlayMusic,
@@ -41,7 +43,7 @@ export const PlayList = ({
         maxHeight: 1,
       }}
     >
-      {musicList.map((music, index) => (
+      {playList.map((music, index) => (
         <ListItem
           // eslint-disable-next-line react/no-array-index-key
           key={`${index}${music.id}`}

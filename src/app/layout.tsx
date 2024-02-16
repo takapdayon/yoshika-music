@@ -17,7 +17,6 @@ const RootLayout = ({ children }: { children: ReactNode }) => (
       <AppProvider>
         <MainLayout>{children}</MainLayout>
       </AppProvider>
-      {children}
     </body>
   </html>
 );

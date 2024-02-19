@@ -34,8 +34,8 @@ const ClientPage = ({ musicList }: { musicList: OutputMusic[] }) => {
     seekState,
     playerRef,
     changeSeek,
-    changeSeekMouseDown,
-    changeSeekMouseUp,
+    changeSeekPointerDown,
+    changeSeekPointerUp,
     handleOnProgress,
   } = useYoutubeController();
 
@@ -97,8 +97,8 @@ const ClientPage = ({ musicList }: { musicList: OutputMusic[] }) => {
         playingMusic={playingMusic}
         onBackPlayMusic={onBackPlayMusic}
         onForwardPlayMusic={onForwardPlayMusic}
-        changeSeekMouseUp={changeSeekMouseUp}
-        changeSeekMouseDown={changeSeekMouseDown}
+        changeSeekPointerUp={changeSeekPointerUp}
+        changeSeekPointerDown={changeSeekPointerDown}
         seekState={seekState}
       />
     </>

@@ -49,8 +49,8 @@ type PlayControllerProps = {
   seekState: OnProgressProps;
   changeVolume: (newValue: number) => void;
   changeSeek: (newValue: number) => void;
-  changeSeekMouseUp: () => void;
-  changeSeekMouseDown: () => void;
+  changeSeekPointerUp: () => void;
+  changeSeekPointerDown: () => void;
   onBackPlayMusic: () => void;
   onForwardPlayMusic: () => void;
 } & SwitchPlayPauseProps;
@@ -63,8 +63,8 @@ export const PlayController = memo(
     changeSeek,
     onBackPlayMusic,
     onForwardPlayMusic,
-    changeSeekMouseUp,
-    changeSeekMouseDown,
+    changeSeekPointerUp,
+    changeSeekPointerDown,
     seekState,
     playingMusicNum,
     playList,
@@ -105,8 +105,8 @@ export const PlayController = memo(
             <Slider
               size="small"
               valueLabelDisplay="off"
-              onMouseUp={changeSeekMouseUp}
-              onMouseDown={changeSeekMouseDown}
+              onPointerUp={changeSeekPointerUp}
+              onPointerDown={changeSeekPointerDown}
               onChange={handleOnChangeSeek}
               min={playingMusic?.playStartTime}
               max={playingMusic?.playEndTime}

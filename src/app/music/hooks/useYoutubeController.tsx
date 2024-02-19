@@ -43,9 +43,9 @@ export const useYoutubeController = () => {
   const { ...playingController } = usePlayingController();
   const { seekState, changeSeek, setSeekState } = useSeekController();
 
-  const changeSeekMouseDown = useCallback(() => setIsSeeking(true), []);
+  const changeSeekPointerDown = useCallback(() => setIsSeeking(true), []);
 
-  const changeSeekMouseUp = useCallback(() => {
+  const changeSeekPointerUp = useCallback(() => {
     setIsSeeking(false);
     playerRef.current?.seekTo(seekState.playedSeconds, 'seconds');
   }, [seekState.playedSeconds]);
@@ -65,8 +65,8 @@ export const useYoutubeController = () => {
     playerRef,
     seekState,
     changeSeek,
-    changeSeekMouseDown,
-    changeSeekMouseUp,
+    changeSeekPointerDown,
+    changeSeekPointerUp,
     handleOnProgress,
   };
 };

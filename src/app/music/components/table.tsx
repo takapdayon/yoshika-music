@@ -202,7 +202,7 @@ export const MusicTable = ({ addPlayList, musicList }: MusicTableProps) => (
               {row.title}
             </TableCell>
             <TableCell>{row.artist}</TableCell>
-            <TableCell>{row.playEndTime - row.playStartTime}</TableCell>
+            <TableCell>{row.formattedPlayTime}</TableCell>
             <TableCell>{row.youtubeTitle}</TableCell>
           </TableRow>
         ))}

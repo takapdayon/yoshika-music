@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { z } from 'zod';
 
 export const Music = z
@@ -14,10 +15,15 @@ export const Music = z
     ...args,
     playTime: args.playEndTime - args.playStartTime,
   }))
-  .transform(args => ({
-    ...args,
-    formatPlayTime: args.playTime,
-  }));
+  .transform(args => {
+    const date = new Date(0);
+    date.setSeconds(args.playTime);
+    const formattedPlayTime = format(date, 'mm:ss');
+    return {
+      ...args,
+      formattedPlayTime,
+    };
+  });
 
 export type InputMusic = z.input<typeof Music>;
 export type OutputMusic = z.output<typeof Music>;

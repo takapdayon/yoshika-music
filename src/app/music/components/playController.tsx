@@ -30,13 +30,9 @@ const SwitchPlayPause = memo(
       disabled={!playingMusic?.id}
       aria-label={playing ? 'pause' : 'play'}
       onClick={playing ? pauseVideo : playVideo}
-      size="large"
+      size="small"
     >
-      {playing ? (
-        <PauseRounded fontSize="inherit" />
-      ) : (
-        <PlayArrowRounded fontSize="inherit" />
-      )}
+      {playing ? <PauseRounded /> : <PlayArrowRounded />}
     </IconButton>
   ),
 );
@@ -101,7 +97,11 @@ export const PlayController = memo(
         variant="outlined"
       >
         <CustomCardContent>
-          <Box sx={{ width: 1, pt: 3 }} display="flex" justifyContent="center">
+          <Box
+            sx={{ width: 1, position: 'fixed' }}
+            display="flex"
+            justifyContent="center"
+          >
             <Slider
               size="small"
               valueLabelDisplay="off"
@@ -119,14 +119,15 @@ export const PlayController = memo(
             spacing={2}
             display="flex"
             justifyContent="center"
+            sx={{ pt: 2 }}
           >
             <IconButton
               disabled={!playedPlayList.length}
               aria-label="previous song"
               onClick={onBackPlayMusic}
-              size="large"
+              size="small"
             >
-              <FirstPageRounded fontSize="inherit" />
+              <FirstPageRounded />
             </IconButton>
             <SwitchPlayPause
               playVideo={playVideo}
@@ -140,15 +141,15 @@ export const PlayController = memo(
               }
               aria-label="next song"
               onClick={onForwardPlayMusic}
-              size="large"
+              size="small"
             >
-              <LastPageRounded fontSize="inherit" />
+              <LastPageRounded />
             </IconButton>
           </Stack>
           <Box
             sx={{
-              mb: 1,
               px: 1,
+              mb: 1,
               display: 'flex',
               justifyContent: 'center',
             }}

@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Stack } from '@mui/material';
+import { Box, Hidden, Paper, Stack } from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 
 import { YoutubeDisplay } from './components/display';
@@ -41,10 +41,28 @@ const ClientPage = ({ musicList }: { musicList: OutputMusic[] }) => {
 
   return (
     <>
-      <Grid2 container spacing={2} sx={{ height: 1, width: 1, px: 3 }}>
-        <Grid2 xs={5} sx={{ height: '85%', maxHeight: '85%' }}>
-          <Stack spacing={2} sx={{ height: 1 }}>
-            <Box sx={{ height: '60%', maxHeight: '60%', borderRadius: 2 }}>
+      <Grid2
+        container
+        spacing={{ xs: 0, md: 2 }}
+        sx={{ height: 1, width: 1, px: { xs: 0, md: 3 } }}
+      >
+        <Grid2
+          xs={12}
+          md={5}
+          sx={{
+            height: { xs: 'unset', md: '87%' },
+            maxHeight: { xs: 'unset', md: '87%' },
+            mb: { xs: 3, md: 0 },
+          }}
+        >
+          <Stack spacing={{ xs: 0, md: 2 }} sx={{ height: 1 }}>
+            <Box
+              sx={{
+                width: 1,
+                borderRadius: 2,
+                aspectRadio: '16/9',
+              }}
+            >
               <YoutubeDisplay
                 ref={playerRef}
                 playingMusic={playingMusic}
@@ -53,29 +71,33 @@ const ClientPage = ({ musicList }: { musicList: OutputMusic[] }) => {
                 handleOnProgress={handleOnProgress}
               />
             </Box>
-            <Box
-              sx={{
-                height: '40%',
-                maxHeight: '40%',
-                '& ::-webkit-scrollbar': {
-                  display: 'none',
-                },
-              }}
-            >
-              <PlayList
-                playList={playList}
-                playingMusicNum={playingMusicNum}
-                delPlayList={delPlayList}
-                selectPlayMusic={selectPlayMusic}
-              />
-            </Box>
+            <Hidden mdDown>
+              <Box
+                sx={{
+                  height: 1,
+                  overflow: 'hidden',
+                  '& ::-webkit-scrollbar': {
+                    display: 'none',
+                  },
+                }}
+                component={Paper}
+              >
+                <PlayList
+                  playList={playList}
+                  playingMusicNum={playingMusicNum}
+                  delPlayList={delPlayList}
+                  selectPlayMusic={selectPlayMusic}
+                />
+              </Box>
+            </Hidden>
           </Stack>
         </Grid2>
         <Grid2
-          xs={7}
+          xs={12}
+          md={7}
           sx={{
-            height: '85%',
-            maxHeight: '85%',
+            height: '87%',
+            maxHeight: '87%',
             '& ::-webkit-scrollbar': {
               display: 'none',
             },

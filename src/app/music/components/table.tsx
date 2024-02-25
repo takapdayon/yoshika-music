@@ -1,4 +1,5 @@
 import {
+  Hidden,
   Paper,
   Table,
   TableBody,
@@ -15,7 +16,24 @@ type MusicTableProps = {
   musicList: OutputMusic[];
 };
 
-const headers = ['タイトル', 'アーティスト', '再生時間', '動画タイトル'];
+const headers = [
+  {
+    name: 'タイトル',
+    responsive: true,
+  },
+  {
+    name: 'アーティスト',
+    responsive: false,
+  },
+  {
+    name: '再生時間',
+    responsive: true,
+  },
+  {
+    name: '動画タイトル',
+    responsive: false,
+  },
+];
 
 export const MusicTable = ({ addPlayList, musicList }: MusicTableProps) => (
   <TableContainer component={Paper} sx={{ height: 1 }}>
@@ -23,9 +41,12 @@ export const MusicTable = ({ addPlayList, musicList }: MusicTableProps) => (
       <TableHead>
         <TableRow>
           {headers.map(header => (
-            <TableCell sx={{ fontWeight: 'bold' }} key={header}>
-              {header}
-            </TableCell>
+            <Hidden
+              {...(!header.responsive ? { mdDown: true } : {})}
+              key={header.name}
+            >
+              <TableCell sx={{ fontWeight: 'bold' }}>{header.name}</TableCell>
+            </Hidden>
           ))}
         </TableRow>
       </TableHead>
@@ -52,27 +73,31 @@ export const MusicTable = ({ addPlayList, musicList }: MusicTableProps) => (
             >
               {row.title}
             </TableCell>
-            <TableCell
-              sx={{
-                maxWidth: 200,
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {row.artist}
-            </TableCell>
+            <Hidden mdDown>
+              <TableCell
+                sx={{
+                  maxWidth: 200,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {row.artist}
+              </TableCell>
+            </Hidden>
             <TableCell>{row.formattedPlayTime}</TableCell>
-            <TableCell
-              sx={{
-                maxWidth: 400,
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {row.youtubeTitle}
-            </TableCell>
+            <Hidden mdDown>
+              <TableCell
+                sx={{
+                  maxWidth: 400,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {row.youtubeTitle}
+              </TableCell>
+            </Hidden>
           </TableRow>
         ))}
       </TableBody>

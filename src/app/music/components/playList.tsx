@@ -10,7 +10,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
-import Paper from '@mui/material/Paper';
 
 import { OutputMusic } from '../types';
 
@@ -32,7 +31,6 @@ export const PlayList = ({
       width: 1,
       height: 1,
     }}
-    component={Paper}
   >
     <List
       component="nav"

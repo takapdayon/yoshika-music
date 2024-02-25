@@ -48,7 +48,7 @@ export const YoutubeDisplay = forwardRef<ReactPlayer, YoutubeDisplayProps>(
     }, []);
 
     return (
-      <Box sx={{ height: 1 }}>
+      <Box sx={{ height: 1, aspectRatio: '16/9' }}>
         {isLoaded ? (
           <ReactPlayer
             {...reactPlayerProps}

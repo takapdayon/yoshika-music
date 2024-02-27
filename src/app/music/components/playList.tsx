@@ -11,10 +11,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 
-import { OutputMusic } from '../types';
+import { PlayListType } from '../hooks/usePlayList';
 
 type PlayListProps = {
-  playList: OutputMusic[];
+  playList: PlayListType[];
   playingMusicNum: number;
   delPlayList: (index: number) => void;
   selectPlayMusic: (selectedMusicNum: number) => void;
@@ -44,7 +44,7 @@ export const PlayList = ({
       {playList.map((music, index) => (
         <ListItem
           // eslint-disable-next-line react/no-array-index-key
-          key={`${index}${music.id}`}
+          key={music.playListId}
           secondaryAction={
             <IconButton
               edge="end"

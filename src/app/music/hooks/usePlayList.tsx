@@ -1,11 +1,16 @@
 import { useCallback, useMemo, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import { OutputMusic } from '../types';
 
+export type PlayListType = {
+  playListId: string;
+} & OutputMusic;
+
 export const usePlayList = () => {
   const [playingMusicNum, setPlayingMusicNum] = useState<number>(0);
-  const [playList, setPlayList] = useState<OutputMusic[]>([]);
-  const [playedPlayList, setPlayedPlayList] = useState<OutputMusic[]>([]);
+  const [playList, setPlayList] = useState<PlayListType[]>([]);
+  const [playedPlayList, setPlayedPlayList] = useState<PlayListType[]>([]);
 
   const playingMusic = useMemo(
     () => playList.find((music, index) => index === playingMusicNum),
@@ -13,7 +18,10 @@ export const usePlayList = () => {
   );
 
   const addPlayList = useCallback((selectedMusic: OutputMusic) => {
-    setPlayList(before => [...before, selectedMusic]);
+    setPlayList(before => [
+      ...before,
+      { ...selectedMusic, playListId: uuidv4() },
+    ]);
   }, []);
 
   const delPlayList = (index: number) => {

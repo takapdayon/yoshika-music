@@ -5,19 +5,16 @@ import { forwardRef, useEffect, useMemo, useState } from 'react';
 import ReactPlayer, { ReactPlayerProps } from 'react-player';
 import { OnProgressProps } from 'react-player/base';
 
-import { OutputMusic } from '../types';
+import { PlayListType } from '../hooks/usePlayList';
 
-const useYoutubeDisplayHook = (playingMusic: OutputMusic | undefined) => {
+const useYoutubeDisplayHook = (playingMusic: PlayListType | undefined) => {
   const youtubeUrl = useMemo(
     () => (playingMusic ? playingMusic.youtubeUrl : ''),
     [playingMusic],
   );
 
   const youtubeKey = useMemo(
-    () =>
-      playingMusic
-        ? `${playingMusic.playEndTime}${playingMusic.playStartTime}${playingMusic?.id}`
-        : null,
+    () => (playingMusic ? playingMusic.playListId : null),
     [playingMusic],
   );
 
@@ -28,7 +25,7 @@ const useYoutubeDisplayHook = (playingMusic: OutputMusic | undefined) => {
 };
 
 type YoutubeDisplayProps = {
-  playingMusic: OutputMusic | undefined;
+  playingMusic: PlayListType | undefined;
   onEndPlayingMusic: () => void;
   reactPlayerProps: ReactPlayerProps | null;
   handleOnProgress: (state: OnProgressProps) => void;

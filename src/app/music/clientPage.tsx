@@ -69,6 +69,8 @@ const ClientPage = ({ musicList }: { musicList: OutputMusic[] }) => {
                 onEndPlayingMusic={onEndPlayingMusic}
                 reactPlayerProps={{ playing, volume }}
                 handleOnProgress={handleOnProgress}
+                onPauseMusic={pause}
+                onPlayMusic={play}
               />
             </Box>
             <Hidden mdDown>

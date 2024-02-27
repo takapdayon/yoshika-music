@@ -32,11 +32,20 @@ type YoutubeDisplayProps = {
   onEndPlayingMusic: () => void;
   reactPlayerProps: ReactPlayerProps | null;
   handleOnProgress: (state: OnProgressProps) => void;
+  onPlayMusic: () => void;
+  onPauseMusic: () => void;
 };
 
 export const YoutubeDisplay = forwardRef<ReactPlayer, YoutubeDisplayProps>(
   (
-    { playingMusic, onEndPlayingMusic, reactPlayerProps, handleOnProgress },
+    {
+      playingMusic,
+      onEndPlayingMusic,
+      reactPlayerProps,
+      handleOnProgress,
+      onPlayMusic,
+      onPauseMusic,
+    },
     ref,
   ) => {
     const { youtubeUrl, youtubeKey } = useYoutubeDisplayHook(playingMusic);
@@ -63,6 +72,7 @@ export const YoutubeDisplay = forwardRef<ReactPlayer, YoutubeDisplayProps>(
                   autoplay: 1,
                   enablejsapi: 0,
                   modestbranding: 1,
+                  disablekb: 1,
                   controls: 0,
                   rel: 0,
                   start: playingMusic?.playStartTime,
@@ -71,6 +81,8 @@ export const YoutubeDisplay = forwardRef<ReactPlayer, YoutubeDisplayProps>(
               },
             }}
             onEnded={onEndPlayingMusic}
+            onPlay={onPlayMusic}
+            onPause={onPauseMusic}
             onProgress={handleOnProgress}
           />
         ) : (

@@ -12,7 +12,7 @@ export const Header = () => (
           alignItems="center"
         >
           <Typography variant="h6" noWrap component="div">
-            よしか！
+            よし歌
           </Typography>
         </Grid>
       </Toolbar>

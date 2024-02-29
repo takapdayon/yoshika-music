@@ -1,7 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
 import { z } from 'zod';
 
-const InteractionKeysEnum = z.enum([
+import { addMusic } from '../api/interactions/addMusic';
+import { delMusic } from '../api/interactions/delMusic';
+
+const addMusicKeysEnum = z.enum([
   'youtube_url',
   'youtube_title',
   'music_title',
@@ -9,45 +12,48 @@ const InteractionKeysEnum = z.enum([
   'start_time',
   'end_time',
 ]);
-type InteractionKeysEnum = z.infer<typeof InteractionKeysEnum>;
+type AddMusicKeysEnum = z.infer<typeof addMusicKeysEnum>;
+
+export const commandEnum = z.enum(['add_music', 'del_music']);
+export type CommandEnum = z.infer<typeof commandEnum>;
 
 const optionOfyoutubeUrl = z.object({
-  name: z.literal(InteractionKeysEnum.Enum.youtube_url),
+  name: z.literal(addMusicKeysEnum.Enum.youtube_url),
   type: z.number(),
   value: z.string().url({ message: '' }),
 });
 type OptionOfYoutubeUrl = z.infer<typeof optionOfyoutubeUrl>;
 
 const optionOfyoutubeTitle = z.object({
-  name: z.literal(InteractionKeysEnum.Enum.youtube_title),
+  name: z.literal(addMusicKeysEnum.Enum.youtube_title),
   type: z.number(),
   value: z.string(),
 });
 type OptionOfyoutubeTitle = z.infer<typeof optionOfyoutubeTitle>;
 
 const optionOfMusicTitle = z.object({
-  name: z.literal(InteractionKeysEnum.Enum.music_title),
+  name: z.literal(addMusicKeysEnum.Enum.music_title),
   type: z.number(),
   value: z.string(), // IDEA: 既存のvercelKV内に似たものがあればそっちに置き換えてもいいかも
 });
 type OptionOfMusicTitle = z.infer<typeof optionOfMusicTitle>;
 
 const optionOfArtist = z.object({
-  name: z.literal(InteractionKeysEnum.Enum.artist),
+  name: z.literal(addMusicKeysEnum.Enum.artist),
   type: z.number(),
   value: z.string(), // IDEA: 既存のキーに似たものがあればそっちに置き換えてもいいかも
 });
 type OptionOfArtist = z.infer<typeof optionOfArtist>;
 
 const optionOfStartTime = z.object({
-  name: z.literal(InteractionKeysEnum.Enum.start_time),
+  name: z.literal(addMusicKeysEnum.Enum.start_time),
   type: z.number(),
   value: z.number().nonnegative({ message: 'マイナスは指定できないぴょん' }), // IDEA: 既存のキーに似たものがあればそっちに置き換えてもいいかも
 });
 type OptionOfStartTime = z.infer<typeof optionOfStartTime>;
 
 const optionOfEndTime = z.object({
-  name: z.literal(InteractionKeysEnum.Enum.end_time),
+  name: z.literal(addMusicKeysEnum.Enum.end_time),
   type: z.number(),
   value: z.number().nonnegative({ message: 'マイナスは指定できないぴょん' }), // IDEA: 既存のキーに似たものがあればそっちに置き換えてもいいかも
 });
@@ -69,11 +75,11 @@ const convertToObject = (args: ConvertToObjectType) =>
       [item.name]: item.value,
     }),
     {} as {
-      [key in InteractionKeysEnum]: string | number; // FIXME: アサーションなしにできないか検討してー,
+      [key in AddMusicKeysEnum]: string | number; // FIXME: アサーションなしにできないか検討してー,
     },
   );
 
-export const interactionRequest = z
+export const addMusicRequest = z
   .array(
     z.discriminatedUnion('name', [
       optionOfyoutubeUrl,
@@ -84,6 +90,7 @@ export const interactionRequest = z
       optionOfEndTime,
     ]),
   )
+  .length(6)
   .transform(args => {
     const toObject = convertToObject(args);
     return {
@@ -94,6 +101,43 @@ export const interactionRequest = z
       playStartTime: toObject.start_time,
       playEndTime: toObject.end_time,
       youtubeTitle: toObject.youtube_title,
+    };
+  });
+
+export type InputAddMusicRequest = z.input<typeof addMusicRequest>;
+export type OutputAddMusicRequest = z.output<typeof addMusicRequest>;
+
+export const delMusicRequest = z
+  .array(optionOfyoutubeUrl)
+  .transform(args => args[0]);
+
+export type InputDelMusicRequest = z.input<typeof delMusicRequest>;
+export type OutputDelMusicRequest = z.output<typeof delMusicRequest>;
+
+export const interactionRequest = z
+  .discriminatedUnion('name', [
+    z.object({
+      name: z.literal(commandEnum.Enum.add_music),
+      options: addMusicRequest,
+    }),
+    z.object({
+      name: z.literal(commandEnum.Enum.del_music),
+      options: delMusicRequest,
+    }),
+  ])
+  .transform(args => {
+    /* NOTE:
+      discriminatedUnionの要素に対してtransformは行えないので外側で行っている。
+    */
+    if (args.name === commandEnum.Enum.add_music) {
+      return {
+        ...args,
+        func: () => addMusic(args.options),
+      };
+    }
+    return {
+      ...args,
+      func: () => delMusic(args.options),
     };
   });
 

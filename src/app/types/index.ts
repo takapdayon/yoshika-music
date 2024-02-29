@@ -10,6 +10,7 @@ export const Music = z
     playStartTime: z.number(),
     playEndTime: z.number(),
     youtubeTitle: z.string(),
+    deleted: z.boolean().default(false),
   })
   .transform(args => ({
     ...args,

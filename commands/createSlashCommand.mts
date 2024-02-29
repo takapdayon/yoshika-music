@@ -44,10 +44,20 @@ const createCommand = new SlashCommandBuilder()
       .setRequired(true),
   );
 
+const deleteCommand = new SlashCommandBuilder()
+  .setName('del_music')
+  .setDescription('Delete the music included in youtubeUrl')
+  .addStringOption(option =>
+    option
+      .setName('youtube_url')
+      .setDescription('youtube url(without query parameter)')
+      .setRequired(true),
+  );
+
 const createSlashCommand = async () => {
   const rest = new REST().setToken(DISCORD_TOKEN);
   // The put method is used to fully refresh all commands in the guild with the current set
-  const commands = [createCommand];
+  const commands = [createCommand, deleteCommand];
   try {
     console.log(
       `Started refreshing ${commands.length} application (/) commands.`,

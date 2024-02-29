@@ -7,10 +7,12 @@ const { MUSICLIST_KEYNAME = '' } = process.env;
 
 const getMusicList = async () => {
   const musicListFromKV = await kv.lrange<InputMusic>(MUSICLIST_KEYNAME, 0, -1);
-  return musicListFromKV.map(music => {
-    const parsedMusic = Music.parse(music);
-    return parsedMusic;
-  });
+  return musicListFromKV
+    .map(music => {
+      const parsedMusic = Music.parse(music);
+      return parsedMusic;
+    })
+    .filter(music => !music.deleted);
 };
 
 const Page = async () => {

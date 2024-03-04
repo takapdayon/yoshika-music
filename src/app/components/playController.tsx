@@ -8,7 +8,7 @@ import {
   VolumeDownRounded,
   VolumeUpRounded,
 } from '@mui/icons-material';
-import { Stack, Slider, IconButton, Box } from '@mui/material';
+import { Stack, Slider, IconButton, Box, Hidden } from '@mui/material';
 import Card from '@mui/material/Card';
 import { memo, useCallback } from 'react';
 import { OnProgressProps } from 'react-player/base';
@@ -111,7 +111,13 @@ export const PlayController = memo(
               min={playingMusic?.playStartTime}
               max={playingMusic?.playEndTime}
               value={seekState.playedSeconds}
-              sx={{ padding: 0, zIndex: 1000 }}
+              sx={{
+                p: 0,
+                zIndex: 2,
+                '@media (pointer: coarse)': {
+                  m: '-20px',
+                },
+              }}
             />
           </Box>
           <Stack
@@ -119,7 +125,7 @@ export const PlayController = memo(
             spacing={2}
             display="flex"
             justifyContent="center"
-            sx={{ pt: 2 }}
+            sx={{ pt: 2, mb: { xs: 1, md: 'unset' } }}
           >
             <IconButton
               disabled={!playedPlayList.length}
@@ -146,56 +152,62 @@ export const PlayController = memo(
               <LastPageRounded />
             </IconButton>
           </Stack>
-          <Box
-            sx={{
-              px: 1,
-              mb: 1,
-              display: 'flex',
-              justifyContent: 'center',
-            }}
-          >
-            <Stack
-              spacing={2}
-              direction="row"
+          <Hidden mdDown>
+            <Box
               sx={{
-                width: 350,
+                px: 1,
+                mb: 1,
+                display: 'flex',
+                justifyContent: 'center',
               }}
-              justifyContent="center"
-              alignItems="center"
             >
-              <VolumeDownRounded />
-              <Slider
-                size="small"
-                aria-label="Volume"
-                valueLabelDisplay="auto"
-                value={volume}
-                valueLabelFormat={value => (value * 100).toFixed(0).toString()}
-                onChange={handleOnChangeVolume}
-                min={0}
-                max={1}
-                step={0.01}
-                sx={theme => ({
-                  color:
-                    theme.palette.mode === 'dark' ? '#fff' : 'rgba(0,0,0,0.87)',
-                  '& .MuiSlider-track': {
-                    border: 'none',
-                  },
-                  '& .MuiSlider-thumb': {
-                    width: 12,
-                    height: 12,
-                    backgroundColor: '#fff',
-                    '&:before': {
-                      boxShadow: '0 4px 8px rgba(0,0,0,0.4)',
+              <Stack
+                spacing={2}
+                direction="row"
+                sx={{
+                  width: 350,
+                }}
+                justifyContent="center"
+                alignItems="center"
+              >
+                <VolumeDownRounded />
+                <Slider
+                  size="small"
+                  aria-label="Volume"
+                  valueLabelDisplay="auto"
+                  value={volume}
+                  valueLabelFormat={value =>
+                    (value * 100).toFixed(0).toString()
+                  }
+                  onChange={handleOnChangeVolume}
+                  min={0}
+                  max={1}
+                  step={0.01}
+                  sx={theme => ({
+                    color:
+                      theme.palette.mode === 'dark'
+                        ? '#fff'
+                        : 'rgba(0,0,0,0.87)',
+                    '& .MuiSlider-track': {
+                      border: 'none',
                     },
-                    '&:hover, &.Mui-focusVisible, &.Mui-active': {
-                      boxShadow: 'none',
+                    '& .MuiSlider-thumb': {
+                      width: 12,
+                      height: 12,
+                      backgroundColor: '#fff',
+                      '&:before': {
+                        boxShadow: '0 4px 8px rgba(0,0,0,0.4)',
+                      },
+                      '&:hover, &.Mui-focusVisible, &.Mui-active': {
+                        boxShadow: 'none',
+                      },
                     },
-                  },
-                })}
-              />
-              <VolumeUpRounded />
-            </Stack>
-          </Box>
+                  })}
+                />
+                <VolumeUpRounded />
+              </Stack>
+            </Box>
+          </Hidden>
         </CustomCardContent>
       </Card>
     );

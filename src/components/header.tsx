@@ -2,8 +2,7 @@ import { AppBar, Grid, Toolbar, Typography } from '@mui/material';
 
 export const Header = () => (
   <>
-    {/* <AppBar position="fixed" sx={{ zIndex: theme => theme.zIndex.drawer + 1 }}> */}
-    <AppBar position="fixed" sx={{ zIndex: 10 }}>
+    <AppBar position="sticky" sx={{ zIndex: 3 }}>
       <Toolbar>
         <Grid
           container

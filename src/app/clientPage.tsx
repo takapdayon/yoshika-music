@@ -4,6 +4,7 @@ import { Box, Hidden, Paper, Stack } from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 
 import { YoutubeDisplay } from './components/display';
+import { MiniPlayListWB } from './components/miniPlayList';
 import { PlayController } from './components/playController';
 import { PlayList } from './components/playList';
 import { MusicTable } from './components/table';
@@ -53,6 +54,9 @@ const ClientPage = ({ musicList }: { musicList: OutputMusic[] }) => {
             height: { xs: 'unset', md: '87%' },
             maxHeight: { xs: 'unset', md: '87%' },
             mb: { xs: 3, md: 0 },
+            position: { xs: 'sticky', md: 'unset' },
+            top: { xs: '56px', md: 'unset' },
+            zIndex: 3,
           }}
         >
           <Stack spacing={{ xs: 0, md: 2 }} sx={{ height: 1 }}>
@@ -98,8 +102,9 @@ const ClientPage = ({ musicList }: { musicList: OutputMusic[] }) => {
           xs={12}
           md={7}
           sx={{
-            height: '87%',
-            maxHeight: '87%',
+            height: { xs: 'unset', md: '87%' },
+            maxHeight: { xs: 'unset', md: '87%' },
+            pb: { xs: '58px', md: '8px' },
             '& ::-webkit-scrollbar': {
               display: 'none',
             },
@@ -125,6 +130,14 @@ const ClientPage = ({ musicList }: { musicList: OutputMusic[] }) => {
         changeSeekPointerDown={changeSeekPointerDown}
         seekState={seekState}
       />
+      <Hidden mdUp>
+        <MiniPlayListWB
+          playList={playList}
+          playingMusicNum={playingMusicNum}
+          delPlayList={delPlayList}
+          selectPlayMusic={selectPlayMusic}
+        />
+      </Hidden>
     </>
   );
 };

@@ -13,7 +13,7 @@ import ListSubheader from '@mui/material/ListSubheader';
 
 import { PlayListType } from '../hooks/usePlayList';
 
-type PlayListProps = {
+export type PlayListProps = {
   playList: PlayListType[];
   playingMusicNum: number;
   delPlayList: (index: number) => void;

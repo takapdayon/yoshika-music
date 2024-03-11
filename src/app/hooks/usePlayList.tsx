@@ -3,6 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { OutputMusic } from '../types';
 
+import { useSnackbarMessage } from './useSnackBar';
+
 export type PlayListType = {
   playListId: string;
 } & OutputMusic;
@@ -11,22 +13,32 @@ export const usePlayList = () => {
   const [playingMusicNum, setPlayingMusicNum] = useState<number>(0);
   const [playList, setPlayList] = useState<PlayListType[]>([]);
   const [playedPlayList, setPlayedPlayList] = useState<PlayListType[]>([]);
+  const { successMessage, errorMessage } = useSnackbarMessage();
 
   const playingMusic = useMemo(
     () => playList.find((music, index) => index === playingMusicNum),
     [playList, playingMusicNum],
   );
 
-  const addPlayList = useCallback((selectedMusic: OutputMusic) => {
-    setPlayList(before => [
-      ...before,
-      { ...selectedMusic, playListId: uuidv4() },
-    ]);
-  }, []);
+  const addPlayList = useCallback(
+    (selectedMusic: OutputMusic) => {
+      setPlayList(before => [
+        ...before,
+        { ...selectedMusic, playListId: uuidv4() },
+      ]);
+      successMessage(`プレイリストに追加しました: ${selectedMusic.title}`);
+    },
+    [successMessage],
+  );
 
-  const delPlayList = (index: number) => {
-    setPlayList(before => before.filter((_, i) => i !== index));
-  };
+  const delPlayList = useCallback(
+    (index: number) => {
+      const delMusic = playList.find((_, i) => i === index);
+      setPlayList(before => before.filter((_, i) => i !== index));
+      errorMessage(`プレイリストから削除しました: ${delMusic?.title ?? ''}`);
+    },
+    [errorMessage, playList],
+  );
 
   const selectPlayMusic = useCallback((selectedMusicNum: number) => {
     setPlayingMusicNum(selectedMusicNum);

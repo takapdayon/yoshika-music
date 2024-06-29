@@ -37,10 +37,10 @@
     "zod": "^3.21.4"
   },
   "lint-staged": {
-    "packages/**/*.{ts,tsx}": [
+    "**/*.{ts,tsx}": [
       "eslint --config .eslintrc.js --ignore-path .gitignore --fix"
     ],
-    "packages/**/*.{ts,tsx,json,css,md}": [
+    "**/*.{ts,tsx,json,css,md}": [
       "prettier --write"
     ]
   },
